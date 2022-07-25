@@ -21,7 +21,7 @@ class LayoutScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 60.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                      children: [//wow
                         const Image(
                           color: Colors.white,
                           height: 80,
