@@ -131,21 +131,24 @@ class DefaultElevatedButton extends StatelessWidget {
 
 class DefaultCardFormField extends StatelessWidget {
   final String hintText;
-
-  const DefaultCardFormField({required this.hintText, Key? key})
+final double width;
+  const DefaultCardFormField({this.width=double.infinity, required this.hintText, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      margin: const EdgeInsets.all(10),
-      elevation: 4,
-      child: TextFormField(
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: InputBorder.none,
-          contentPadding: const EdgeInsets.all(10),
+    return SizedBox(
+      width: width,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        margin: const EdgeInsets.all(10),
+        elevation: 4,
+        child: TextFormField(
+          decoration: InputDecoration(
+            hintText: hintText,
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.all(10),
+          ),
         ),
       ),
     );
@@ -425,11 +428,14 @@ class AppBarAtAllScreens extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      DefaultTextHeadersAtAppBar(text: 'About us', onPressed: () {}),
+                      DefaultTextHeadersAtAppBar(
+                          text: 'About us', onPressed: () {}),
                       DefaultTextHeadersAtAppBar(
                           text: 'Categories', onPressed: () {}),
-                      DefaultTextHeadersAtAppBar(text: 'Services', onPressed: () {}),
-                      DefaultTextHeadersAtAppBar(text: 'Request', onPressed: () {}),
+                      DefaultTextHeadersAtAppBar(
+                          text: 'Services', onPressed: () {}),
+                      DefaultTextHeadersAtAppBar(
+                          text: 'Request', onPressed: () {}),
                     ],
                   ),
                 ),
@@ -440,7 +446,59 @@ class AppBarAtAllScreens extends StatelessWidget {
                 ),
                 DefaultElevatedButton(
                   text: 'Sign in',
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        actionsPadding:
+                            const EdgeInsets.only(bottom: 10, right: 10),
+                        title: const Center(
+                          child: Text(
+                            'Lets get this right ....',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25),
+                          ),
+                        ),
+                        backgroundColor: Colors.white,
+                        actions: <Widget>[
+                          const Center(
+                            child: Text(
+                              'What kind of friend you looking for?',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              DefaultElevatedCardCategory(
+                                onPressed: () {},
+                                kind: 'Dogs',
+                                image: 'assets/images/icon_dog_at_category.png',
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              DefaultElevatedCardCategory(
+                                onPressed: () {},
+                                kind: 'Cats',
+                                image: 'assets/images/icon_cat_at_category.png',
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  },
                   toggle: false,
                 ),
               ],
@@ -473,6 +531,70 @@ class DefaultCardLoginWithFacebookAndGoogle extends StatelessWidget {
               onPressed: () {},
               isThereBackgroundColor: false),
         ],
+      ),
+    );
+  }
+}
+
+class DefaultElevatedCardCategory extends StatelessWidget {
+  final Function()? onPressed;
+
+  final bool selected;
+  final String kind;
+  final String image;
+
+  const DefaultElevatedCardCategory(
+      {required this.image,
+      required this.kind,
+      this.selected = false,
+      required this.onPressed,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(40.0),
+      child: Container(
+        width: 200,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.black, width: 1.5)),
+        child: ElevatedButton(
+          onHover: (v) {
+            // toggle = !toggle;
+          },
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15))),
+            padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+            backgroundColor: MaterialStateProperty.all(selected ?const Color(0xffFFE3C5): Colors.white),
+            elevation: MaterialStateProperty.all(0),
+          ),
+          onPressed: onPressed,
+          child: Column(
+            children: [
+              Image(
+                height: 100,
+                width: 100,
+                image: AssetImage(
+                  image,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                kind,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
