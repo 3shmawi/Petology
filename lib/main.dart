@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon/home_screen.dart';
 import 'package:hackathon/layout/layout_screen.dart';
 import 'package:hackathon/modules/login/login_screen.dart';
 
@@ -18,8 +19,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-     home: LoginScreen(),
+    return MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
