@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon/modules/adaption/adaption_feed_dogs_screen.dart';
 import 'package:hackathon/modules/login/login_screen.dart';
 import 'package:hackathon/modules/sign_up/sign_up_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -523,7 +524,7 @@ class AppBarAtAllScreens extends StatelessWidget {
                       DefaultTextHeadersAtAppBar(
                           text: 'Categories', onPressed: () {}),
                       DefaultTextHeadersAtAppBar(
-                          text: 'Services', onPressed: () {}),
+                          text: 'Services', onPressed: () {defaultNavigatePush(context, const FeedDogsScreen());},),
                       DefaultTextHeadersAtAppBar(
                           text: 'Request', onPressed: () {}),
                     ],

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hackathon/modules/home_screen.dart';
 import 'package:hackathon/modules/login/cubit/states.dart';
 import 'package:hackathon/modules/sign_up/sign_up_screen.dart';
 
+import '../../layout/home_screen.dart';
 import '../../shared/components/components.dart';
 import 'cubit/cubit.dart';
 

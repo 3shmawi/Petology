@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../shared/components/components.dart';
+import '../../shared/cubit/cubit.dart';
+import '../../shared/cubit/states.dart';
 
 class FeedDogsScreen extends StatelessWidget {
   const FeedDogsScreen({Key? key}) : super(key: key);
@@ -39,64 +42,66 @@ class FeedDogsScreen extends StatelessWidget {
       'Senior dogs, like all dogs, should be fed according to their overall health and level of activity. A less active dog can quickly gain weight if you’re not careful.',
       'Richard H. Pitcairn, DVM, PhD, author of Dr. Pitcairn’s Complete Guide to Natural Health for Dogs and Cats, believes the most reliable approach is to feed what seems to be a reasonable amount and monitor his body weight.',
     ];
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const AppBarAtAllScreens(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 250,
-                      child: Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: const [
-                          AppBarBackgroundColor(),
-                          Image(
-                              height: 180,
-                              width: 180,
-                              image: AssetImage('assets/images/plat.png')),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 80.0),
-                            child: Image(
-                                height: 180,
-                                width: 350,
-                                image: AssetImage('assets/images/food.png')),
+    return BlocConsumer<MainCubit, MainStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit = MainCubit.get(context);
+        return SafeArea(
+          child: Scaffold(
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const AppBarAtAllScreens(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 250,
+                          child: Stack(
+                            alignment: AlignmentDirectional.bottomCenter,
+                            children: const [
+                              AppBarBackgroundColor(),
+                              Image(
+                                  height: 180,
+                                  width: 180,
+                                  image: AssetImage('assets/images/plat.png')),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 80.0),
+                                child: Image(
+                                    height: 180,
+                                    width: 350,
+                                    image:
+                                        AssetImage('assets/images/food.png')),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(60.0),
-                      child: Text(
-                        'How you feed Your Dog?',
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                    ),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.all(60.0),
-                        child: Text(
-                          text[index],
-                          style: Theme.of(context).textTheme.headline5,
                         ),
-                      ),
-                      itemCount: text.length,
+                        Padding(
+                          padding: const EdgeInsets.all(60.0),
+                          child: Text(
+                            '{cubit.howToFeedModel.title}',
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(60.0),
+                          child: Text(
+                            '{cubit.howToFeedModel.body}',
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                        ),
+                        const LastCategoriesInTheEndOfScreen(),
+                      ],
                     ),
-                    const LastCategoriesInTheEndOfScreen(),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
