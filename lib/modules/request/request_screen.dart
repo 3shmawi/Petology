@@ -7,6 +7,11 @@ class RequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var phoneController = TextEditingController();
+    var descriptionController = TextEditingController();
+    var colorController = TextEditingController();
+    var locationController = TextEditingController();
+    var nameController = TextEditingController();
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -19,7 +24,9 @@ class RequestScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 40.0),
                       child: Container(
-                        width: MediaQuery.of(context).size.width < 1000 ?450 :800,
+                        width: MediaQuery.of(context).size.width < 1000
+                            ? 450
+                            : 800,
                         padding: const EdgeInsets.all(15.0),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
@@ -41,53 +48,76 @@ class RequestScreen extends StatelessWidget {
                                 image: AssetImage('assets/images/dog_dog.png'),
                               ),
                             ),
-                            const DefaultCardFormField(hintText: 'Name'),
-                            const DefaultCardFormField(hintText: 'Category'),
+                            DefaultCardFormField(
+                              hintText: 'Name',
+                              textEditingController: nameController,
+                            ),
+                            const DefaultDropDownButton(
+                              text: 'Category',
+                              items: ['', '', ''],
+                              validateText: 'Invalid Value',
+                            ),
                             Row(
                               children: const [
                                 Expanded(
-                                    child: DefaultCardFormField(
-                                  hintText: 'Year',
-                                )),
+                                  child: DefaultDropDownButton(
+                                      text: 'Year',
+                                      validateText: 'Invalid Value',
+                                      items: ['1', '2', '3']),
+                                ),
                                 Expanded(
-                                  child:
-                                      DefaultCardFormField(hintText: 'Months'),
+                                  child: DefaultDropDownButton(
+                                      text: 'Months',
+                                      validateText: 'Invalid Value',
+                                      items: ['Jan', 'Feb', 'Mar']),
                                 ),
                               ],
                             ),
                             Row(
                               children: const [
                                 Expanded(
-                                  child: DefaultCardFormField(
-                                    hintText: 'Size',
-                                  ),
-                                ),
+                                    child: DefaultDropDownButton(
+                                  text: 'Size',
+                                  items: ['', '', ''],
+                                  validateText: 'Invalid Value',
+                                )),
                                 Expanded(
-                                    child: DefaultCardFormField(
-                                        hintText: 'Breed')),
+                                    child: DefaultDropDownButton(
+                                  text: 'Breed',
+                                  items: ['', '', ''],
+                                  validateText: 'Invalid Value',
+                                )),
                               ],
                             ),
                             Row(
                               children: const [
                                 Expanded(
-                                    child: DefaultCardFormField(
-                                  hintText: 'Hear length',
+                                    child: DefaultDropDownButton(
+                                  text: 'Hair Length',
+                                  items: ['', '', ''],
+                                  validateText: 'Invalid Value',
                                 )),
                                 Expanded(
-                                  child: DefaultCardFormField(
-                                      hintText: 'Care & behaviour'),
-                                ),
+                                    child: DefaultDropDownButton(
+                                  text: 'Care & behavior',
+                                  items: ['', '', ''],
+                                  validateText: 'Invalid Value',
+                                )),
                               ],
                             ),
                             Row(
-                              children: const [
-                                Expanded(
-                                    child: DefaultCardFormField(
-                                  hintText: 'house Trained',
+                              children: [
+                                const Expanded(
+                                    child: DefaultDropDownButton(
+                                  text: 'House Train',
+                                  items: ['', '', ''],
+                                  validateText: 'Invalid Value',
                                 )),
                                 Expanded(
                                     child: DefaultCardFormField(
-                                        hintText: 'Color')),
+                                  hintText: 'Color',
+                                  textEditingController: colorController,
+                                )),
                               ],
                             ),
                             const Align(
@@ -100,10 +130,18 @@ class RequestScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const DefaultCardFormField(hintText: 'Location'),
-                            const DefaultCardFormField(
-                                hintText: 'Phone Number'),
-                            const DefaultCardFormField(hintText: 'Description'),
+                            DefaultCardFormField(
+                              hintText: 'Location',
+                              textEditingController: locationController,
+                            ),
+                            DefaultCardFormField(
+                              hintText: 'Phone Number',
+                              textEditingController: phoneController,
+                            ),
+                            DefaultCardFormField(
+                              hintText: 'Description',
+                              textEditingController: descriptionController,
+                            ),
                             const Align(
                               alignment: AlignmentDirectional.bottomStart,
                               child: Padding(
@@ -117,7 +155,10 @@ class RequestScreen extends StatelessWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            const DefaultTextButton(text: 'Send'),
+                            DefaultTextButton(
+                              text: 'Send',
+                              onPressed: () {},
+                            ),
                             const SizedBox(
                               height: 50,
                             ),

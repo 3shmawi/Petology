@@ -7,6 +7,9 @@ class HelpYourFriendScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var phoneController = TextEditingController();
+    var categoryController = TextEditingController();
+    var locationController = TextEditingController();
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -22,15 +25,15 @@ class HelpYourFriendScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(color: Colors.black, width: 2)),
                   child: Column(
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Help your friend',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.all(25.0),
                         child: Icon(
                           Icons.camera_alt,
@@ -38,8 +41,11 @@ class HelpYourFriendScreen extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      DefaultCardFormField(hintText: 'Category'),
-                      Align(
+                      DefaultCardFormField(
+                        hintText: 'Category',
+                        textEditingController: categoryController,
+                      ),
+                      const Align(
                           alignment: AlignmentDirectional.bottomStart,
                           child: Padding(
                             padding: EdgeInsets.only(left: 15.0, top: 20),
@@ -48,16 +54,28 @@ class HelpYourFriendScreen extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           )),
-                      DefaultCardFormField(hintText: 'Location'),
-                      DefaultCardFormField(hintText: 'Phone Number'),
-                      SizedBox(
+                      DefaultCardFormField(
+                        hintText: 'Location',
+                        textEditingController: locationController,
+                      ),
+                      DefaultCardFormField(
+                        hintText: 'Phone Number',
+                        textEditingController: phoneController,
+                      ),
+                      const SizedBox(
                         height: 20,
                       ),
-                      DefaultTextButton(text: 'Send'),
-                      SizedBox(
+                      DefaultTextButton(
+                        text: 'Send',
+                        onPressed: () {},
+                      ),
+                      const SizedBox(
                         height: 20,
                       ),
-                      DefaultTextButton(text: 'Call'),
+                      DefaultTextButton(
+                        text: 'Call',
+                        onPressed: () {},
+                      ),
                     ],
                   ),
                 ),
