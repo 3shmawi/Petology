@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackathon/layout/home_cubit/home_cubit.dart';
+import 'package:hackathon/layout/home_cubit/home_states.dart';
 
 import '../../shared/components/components.dart';
-import '../../shared/cubit/cubit.dart';
-import '../../shared/cubit/states.dart';
+
 
 class FeedDogsScreen extends StatelessWidget {
   const FeedDogsScreen({Key? key}) : super(key: key);
@@ -42,10 +43,10 @@ class FeedDogsScreen extends StatelessWidget {
       'Senior dogs, like all dogs, should be fed according to their overall health and level of activity. A less active dog can quickly gain weight if you’re not careful.',
       'Richard H. Pitcairn, DVM, PhD, author of Dr. Pitcairn’s Complete Guide to Natural Health for Dogs and Cats, believes the most reliable approach is to feed what seems to be a reasonable amount and monitor his body weight.',
     ];
-    return BlocConsumer<MainCubit, MainStates>(
+    return BlocConsumer<HomeCubit, HomeCubitStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit = MainCubit.get(context);
+        var cubit = HomeCubit.get(context);
         return SafeArea(
           child: Scaffold(
             body: Column(

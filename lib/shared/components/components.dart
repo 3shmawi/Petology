@@ -284,8 +284,11 @@ class DefaultSignWithCard extends StatelessWidget {
                       color:
                           isThereBackgroundColor ? Colors.white : Colors.black,
                     )
-                  :  Icon(Icons.g_mobiledata_outlined  ,color:
-              isThereBackgroundColor ? Colors.white : Colors.black,),
+                  : Icon(
+                      Icons.g_mobiledata_outlined,
+                      color:
+                          isThereBackgroundColor ? Colors.white : Colors.black,
+                    ),
               const SizedBox(
                 width: 30,
               ),
@@ -524,7 +527,11 @@ class AppBarAtAllScreens extends StatelessWidget {
                       DefaultTextHeadersAtAppBar(
                           text: 'Categories', onPressed: () {}),
                       DefaultTextHeadersAtAppBar(
-                          text: 'Services', onPressed: () {defaultNavigatePush(context, const FeedDogsScreen());},),
+                        text: 'Services',
+                        onPressed: () {
+                          defaultNavigatePush(context, const FeedDogsScreen());
+                        },
+                      ),
                       DefaultTextHeadersAtAppBar(
                           text: 'Request', onPressed: () {}),
                     ],
@@ -629,13 +636,14 @@ class DefaultCardLoginWithFacebookAndGoogle extends StatelessWidget {
 
 class DefaultElevatedCardCategory extends StatelessWidget {
   final Function()? onPressed;
-
+  final ValueChanged<bool>? onHover;
   final bool selected;
   final String kind;
   final String image;
 
   const DefaultElevatedCardCategory(
-      {required this.image,
+      {required this.onHover,
+      required this.image,
       required this.kind,
       this.selected = false,
       required this.onPressed,
@@ -652,9 +660,7 @@ class DefaultElevatedCardCategory extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             border: Border.all(color: Colors.black, width: 1.5)),
         child: ElevatedButton(
-          onHover: (v) {
-            // toggle = !toggle;
-          },
+          onHover: onHover,
           style: ButtonStyle(
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15))),
@@ -696,9 +702,11 @@ class DefaultDropDownButton extends StatefulWidget {
   final String text;
   final String validateText;
   final List<String> items;
+  String selectedValue;
 
-  const DefaultDropDownButton(
-      {required this.text,
+   DefaultDropDownButton(
+      {this.selectedValue = '',
+      required this.text,
       required this.validateText,
       required this.items,
       Key? key})
@@ -709,7 +717,7 @@ class DefaultDropDownButton extends StatefulWidget {
 }
 
 class _DefaultDropDownButtonState extends State<DefaultDropDownButton> {
-  String? selectedValue;
+
 
   @override
   Widget build(BuildContext context) {
@@ -764,7 +772,7 @@ class _DefaultDropDownButtonState extends State<DefaultDropDownButton> {
           //Do something when changing the item if you want.
         },
         onSaved: (value) {
-          selectedValue = value.toString();
+          widget.selectedValue = value.toString();
         },
       ),
     );

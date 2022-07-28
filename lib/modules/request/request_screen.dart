@@ -52,13 +52,13 @@ class RequestScreen extends StatelessWidget {
                               hintText: 'Name',
                               textEditingController: nameController,
                             ),
-                            const DefaultDropDownButton(
+                             DefaultDropDownButton(
                               text: 'Category',
                               items: ['', '', ''],
                               validateText: 'Invalid Value',
                             ),
                             Row(
-                              children: const [
+                              children:  [
                                 Expanded(
                                   child: DefaultDropDownButton(
                                       text: 'Year',
@@ -74,7 +74,7 @@ class RequestScreen extends StatelessWidget {
                               ],
                             ),
                             Row(
-                              children: const [
+                              children:  [
                                 Expanded(
                                     child: DefaultDropDownButton(
                                   text: 'Size',
@@ -90,7 +90,7 @@ class RequestScreen extends StatelessWidget {
                               ],
                             ),
                             Row(
-                              children: const [
+                              children:  [
                                 Expanded(
                                     child: DefaultDropDownButton(
                                   text: 'Hair Length',
@@ -107,7 +107,7 @@ class RequestScreen extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                const Expanded(
+                                 Expanded(
                                     child: DefaultDropDownButton(
                                   text: 'House Train',
                                   items: ['', '', ''],
