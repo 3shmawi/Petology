@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hackathon/layout/home_cubit/home_cubit.dart';
+import 'package:hackathon/layout/home_cubit/footer_cubit.dart';
+import 'package:hackathon/modules/filter/filter_cubit/filter_cubit.dart';
+import 'package:hackathon/shared/components/constantse.dart';
 
 import '../modules/filter/filter_screen.dart';
 import '../shared/components/components.dart';
-import 'home_cubit/home_states.dart';
+import 'home_cubit/footer_states.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomeCubit>(
-      create: (context) => HomeCubit()
-        ..getFirstSectionHomeData()
-        ..getAboutInfoData(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeCubit>(
+            create: (context) => HomeCubit()..getHomeData()),
+        BlocProvider<FilterCubit>(create: (context) => FilterCubit()),
+      ],
       child: BlocConsumer<HomeCubit, HomeCubitStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          var cubit = HomeCubit.get(context);
-
+          var homeCubit = HomeCubit.get(context);
+          var filterCubit = FilterCubit.get(context);
           return SafeArea(
             child: Scaffold(
-              body: (state is GetHomeDataFirstSectionLoadingState ||
-                      state is AboutSectionLoadingState)
+              body: (homeCubit.aboutModel == null ||
+                      homeCubit.petsNeedsModel == null ||
+                      homeCubit.firstSectionDataModel == null ||
+                      infoData == null ||
+                      homeCubit.findModel == null)
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
@@ -50,9 +57,8 @@ class Home extends StatelessWidget {
                                                 SizedBox(
                                                   width: 300,
                                                   child: Text(
-                                                    cubit.firstSectionDataModel!
-                                                        .title
-                                                        .toString(),
+                                                    homeCubit.firstSectionDataModel!
+                                                        .title,
                                                     style: const TextStyle(
                                                         color: Colors.white,
                                                         fontWeight:
@@ -66,7 +72,8 @@ class Home extends StatelessWidget {
                                                 SizedBox(
                                                   width: 300,
                                                   child: Text(
-                                                    '${cubit.firstSectionDataModel?.body}',
+                                                    homeCubit.firstSectionDataModel!
+                                                        .body,
                                                     textAlign: TextAlign.start,
                                                     style: const TextStyle(
                                                         color: Colors.white),
@@ -191,8 +198,7 @@ class Home extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                cubit.aboutModel!.title
-                                                    .toString(),
+                                                homeCubit.aboutModel!.title,
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontWeight: FontWeight.bold,
@@ -203,8 +209,7 @@ class Home extends StatelessWidget {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  cubit.aboutModel!.body
-                                                      .toString(),
+                                                  homeCubit.aboutModel!.body,
                                                 ),
                                               ),
                                               const SizedBox(
@@ -261,9 +266,9 @@ class Home extends StatelessWidget {
                                             image:
                                                 'assets/images/icon_dog_at_category.png',
                                             onHover: (bool value) {
-                                              cubit.changeColoredCardOne();
+                                              homeCubit.changeColoredCardOne();
                                             },
-                                            selected: cubit.coloredCarOne,
+                                            selected: homeCubit.coloredCarOne,
                                           ),
                                           const SizedBox(
                                             width: 20,
@@ -280,9 +285,9 @@ class Home extends StatelessWidget {
                                             image:
                                                 'assets/images/icon_cat_at_category.png',
                                             onHover: (bool value) {
-                                              cubit.changeColoredCardTwo();
+                                              homeCubit.changeColoredCardTwo();
                                             },
-                                            selected: cubit.coloredCarTwo,
+                                            selected: homeCubit.coloredCarTwo,
                                           ),
                                         ],
                                       )
@@ -311,29 +316,72 @@ class Home extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: 450,
-                                          child: ListView.separated(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            scrollDirection: Axis.horizontal,
-                                            shrinkWrap: true,
-                                            itemBuilder: (context, index) =>
-                                                const DefaultWidgetCardHavePhotoAndButton(
-                                              colorCard: Colors.white,
-                                              textButton: 'Reade more',
-                                              color: Colors.white,
-                                              textName: 'Eisa',
-                                              image: 'assets/images/cat_d.png',
-                                              textCaption: '',
+                                        Stack(
+                                          children: [
+                                            SizedBox(
+                                              height: 450,
+                                              child: ListView.separated(
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) =>
+                                                    DefaultWidgetCardHavePhotoAndButton(
+                                                  colorCard: Colors.white,
+                                                  textButton: 'Reade more',
+                                                  color: Colors.white,
+                                                  textName: homeCubit
+                                                      .findModel![index].name,
+                                                  image: homeCubit.findModel![index]
+                                                      .image[0]
+                                                      .substring(
+                                                          22,
+                                                          homeCubit
+                                                              .findModel![index]
+                                                              .image[0]
+                                                              .length),
+                                                  textCaption: '',
+                                                ),
+                                                separatorBuilder:
+                                                    (context, index) =>
+                                                        const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                itemCount: 15,
+                                              ),
                                             ),
-                                            separatorBuilder:
-                                                (context, index) =>
-                                                    const SizedBox(
-                                              width: 20,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 220.0),
+                                              child: Align(
+                                                alignment: AlignmentDirectional
+                                                    .centerEnd,
+                                                child: IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(
+                                                    Icons.arrow_forward_ios,
+                                                    size: 30,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                            itemCount: 3,
-                                          ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 220.0),
+                                              child: Align(
+                                                alignment: AlignmentDirectional
+                                                    .centerStart,
+                                                child: IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(
+                                                    Icons.arrow_back_ios,
+                                                    size: 30,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         DefaultButtonHasTextAndArrow(
                                           color: const Color(0xff271A15),
@@ -371,47 +419,66 @@ class Home extends StatelessWidget {
                                       const SizedBox(
                                         height: 40,
                                       ),
-                                      Stack(
-                                        children: [
-                                          Stack(
+                                      Wrap(
+                                        alignment: WrapAlignment.center,
+                                        children: List.generate(
+                                          homeCubit.petsNeedsModel!.length,
+                                          (index) => Stack(
                                             alignment:
                                                 AlignmentDirectional.center,
-                                            children: const [
-                                              Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 50.0),
-                                                child: Image(
-                                                  color: Color(0xff271A15),
-                                                  height: 250,
-                                                  width: 250,
-                                                  image: AssetImage(
-                                                      'assets/images/ellipse.png'),
-                                                ),
+                                            children: [
+                                              Stack(
+                                                alignment:
+                                                    AlignmentDirectional.center,
+                                                children: [
+                                                  const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 50.0),
+                                                    child: Image(
+                                                      color: Color(0xff271A15),
+                                                      height: 250,
+                                                      width: 250,
+                                                      image: AssetImage(
+                                                          'assets/images/ellipse.png'),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 100.0),
+                                                    child: Text(
+                                                      homeCubit
+                                                          .petsNeedsModel![
+                                                              index]
+                                                          .title,
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                               Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 100.0),
-                                                child: Text(
-                                                  '{cubit.needsModel[2].title}',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 100.0),
+                                                child: Image(
+                                                  height: 100,
+                                                  width: 100,
+                                                  image: NetworkImage(homeCubit
+                                                      .petsNeedsModel![index]
+                                                      .imageUrl),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          // Image(
-                                          //   height: 200,
-                                          //   width: 200,
-                                          //   image: AssetImage(cubit
-                                          //       .needsModel[0].imageUrl!),
-                                          // ),
-                                        ],
+                                        ),
                                       )
                                     ],
                                   ),
                                 ),
-                                const LastCategoriesInTheEndOfScreen(),
+                                LastCategoriesInTheEndOfScreen(
+                                  infoData: infoData!,
+                                ),
                               ],
                             ),
                           ),

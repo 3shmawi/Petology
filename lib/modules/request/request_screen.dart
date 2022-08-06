@@ -166,7 +166,7 @@ class RequestScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const LastCategoriesInTheEndOfScreen(),
+                  //  const LastCategoriesInTheEndOfScreen(),
                   ],
                 ),
               ),

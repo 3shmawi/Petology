@@ -93,7 +93,7 @@ class SignUpScreen extends StatelessWidget {
                                         ),
                                          DefaultDropDownButton(
                                           validateText: 'invalid',
-                                          items: [
+                                          items: const [
                                             'Egypt',
                                             'Ghana',
                                             'Zimpapwi',
@@ -113,14 +113,8 @@ class SignUpScreen extends StatelessWidget {
                                         DefaultTextButton(
                                           text: 'sign up',
                                           onPressed: () {
-                                            cubit.userRegister(
-                                              country: countryController.text,
-                                              email: emailController.text,
-                                              firstName: firstNameController.text,
-                                              lastName: lastNameController.text,
-                                              password: passwordController.text,
-                                              phone: phoneController.text,
-                                            );
+                                            // cubit.userRegister(
+                                            // );
                                           },
                                         ),
                                         const SizedBox(
@@ -152,7 +146,7 @@ class SignUpScreen extends StatelessWidget {
                             ),
                           ),
 
-                          const LastCategoriesInTheEndOfScreen(),
+                          //const LastCategoriesInTheEndOfScreen(),
                         ],
                       ),
                     ),

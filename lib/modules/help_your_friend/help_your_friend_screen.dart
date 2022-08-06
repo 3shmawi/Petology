@@ -81,7 +81,7 @@ class HelpYourFriendScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const LastCategoriesInTheEndOfScreen(),
+            //const LastCategoriesInTheEndOfScreen(),
           ],
         ),
       ),

@@ -1,8 +1,8 @@
 class AboutModel {
-  String? title;
-  String? body;
+  late final String title;
+  late final String body;
 
-  AboutModel({this.title, this.body});
+  AboutModel({required this.title, required this.body});
 
   AboutModel.fromJson(Map<String, dynamic> json) {
     title = json['title'];

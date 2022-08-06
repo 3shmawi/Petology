@@ -16,7 +16,6 @@ import 'modules/sign_up/sign_up_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await DioHelper.init();
   await CacheHelper.init();
 
   runApp(const MyApp());
@@ -29,15 +28,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
-      token = CacheHelper.getData(key: 'token');
+      //token = CacheHelper.getData(key: 'token');
       Widget widget;
       if (token == null) {
         widget = const LoginScreen();
       } else {
         widget = const Home();
       }
-      return MaterialApp(
-        home: widget,
+      return const MaterialApp(
+        home: Home(),
       );
     });
   }

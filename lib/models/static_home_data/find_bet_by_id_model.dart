@@ -1,53 +1,54 @@
 import 'dart:convert';
 
 class FindBetsByIdModel {
-  int? id;
-  String? name;
-  List<String>? image;
-  int? year;
-  int? month;
-  String? size;
-  String? breed;
-  bool? gender;
-  String? hairLength;
-  String? color;
-  String? careBehavior;
-  bool? houseTrained;
-  String? description;
-  String? location;
-  String? phone;
-  bool? vaccinated;
-  int? categoryId;
-  int? userId;
-  User? user;
-  String? category;
+  late final int id;
+  late final String name;
+  late final List<String> image;
+  late final int year;
+  late final int month;
+  late final String size;
+  late final String breed;
+  late final bool gender;
+  late final String hairLength;
+  late final String color;
+  late final String careBehavior;
+  late final bool houseTrained;
+  late final String description;
+  late final String location;
+  late final String phone;
+  late final bool vaccinated;
+  late final int categoryId;
+  late final int userId;
+  late final User user;
+  late final String category;
 
-  FindBetsByIdModel(
-      {this.id,
-      this.name,
-      this.image,
-      this.year,
-      this.month,
-      this.size,
-      this.breed,
-      this.gender,
-      this.hairLength,
-      this.color,
-      this.careBehavior,
-      this.houseTrained,
-      this.description,
-      this.location,
-      this.phone,
-      this.vaccinated,
-      this.categoryId,
-      this.userId,
-      this.user,
-      this.category});
+  FindBetsByIdModel({
+    required this.id,
+    required this.name,
+    required this.year,
+    required this.breed,
+    required this.image,
+    required this.location,
+    required this.phone,
+    required this.color,
+    required this.size,
+    required this.description,
+    required this.category,
+    required this.month,
+    required this.careBehavior,
+    required this.categoryId,
+    required this.gender,
+    required this.hairLength,
+    required this.houseTrained,
+    required this.user,
+    required this.userId,
+    required this.vaccinated,
+  });
 
   FindBetsByIdModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    image = json['image'] != null ? List<String>.from(json['image']) : null;
+    image = (json['image'] != null ? List<String>.from(json['image']) : null)!;
     year = json['year'];
     month = json['month'];
     size = json['size'];
@@ -63,7 +64,7 @@ class FindBetsByIdModel {
     vaccinated = json['vaccinated'];
     categoryId = json['categoryId'];
     userId = json['userId'];
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+    user = (json['user'] != null ? User.fromJson(json['user']) : null)!;
     category = json['category'];
   }
 
@@ -71,11 +72,7 @@ class FindBetsByIdModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
-    if (image != null) {
-      data['image'] = image!.map((e) => e.toString()).toList();
-    } else {
-      data['image'] = null;
-    }
+    data['image'] = image.map((e) => e.toString()).toList();
     data['year'] = year;
     data['month'] = month;
     data['size'] = size;
@@ -91,13 +88,10 @@ class FindBetsByIdModel {
     data['vaccinated'] = vaccinated;
     data['categoryId'] = categoryId;
     data['userId'] = userId;
-    if (user != null) {
-      data['user'] = user!.toJson();
-    }
+    data['user'] = user.toJson();
     data['category'] = category;
     return data;
   }
-  String toRawJason() => json.encode(toJson());
 }
 
 class User {

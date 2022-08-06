@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hackathon/modules/login/cubit/states.dart';
 import 'package:hackathon/modules/sign_up/sign_up_screen.dart';
+import 'package:hackathon/shared/network/remote/dio_helper.dart';
 
 import '../../layout/home_screen.dart';
 import '../../shared/components/components.dart';
+import '../../shared/network/repository/repository_screen.dart';
 import 'cubit/cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -18,9 +20,9 @@ class LoginScreen extends StatelessWidget {
       create: (context) => MainLoginCubit(),
       child: BlocConsumer<MainLoginCubit, MainLoginStates>(
         listener: (context, state) {
-          if (state is UserLoginSuccessState) {
-            defaultNavigatePush(context, const Home());
-          }
+          // if (state is UserLoginSuccessState) {
+          //   defaultNavigatePush(context, const Home());
+          // }
         },
         builder: (context, state) {
           var cubit = MainLoginCubit.get(context);
@@ -67,14 +69,18 @@ class LoginScreen extends StatelessWidget {
                                   onPressed: () {
                                     cubit.userLogin(
                                         email: emailController.text,
-                                        password: passwordController.text);
+                                        password: passwordController.text).then((value) {
+                                          defaultNavigatePush(context, const Home());
+                                    });
                                   },
                                 ),
                                 Align(
                                   alignment: AlignmentDirectional.bottomEnd,
                                   child: Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 10, right: 25.0,),
+                                      top: 10,
+                                      right: 25.0,
+                                    ),
                                     child: TextButton(
                                       onPressed: () {},
                                       child: Text(
@@ -99,7 +105,10 @@ class LoginScreen extends StatelessWidget {
                                       style: TextStyle(fontSize: 10),
                                     ),
                                     TextButton(
-                                        onPressed: () {defaultNavigatePush(context, const SignUpScreen());},
+                                        onPressed: () {
+                                          defaultNavigatePush(
+                                              context, const SignUpScreen());
+                                        },
                                         child: const Text(
                                           'sign up',
                                           style: TextStyle(fontSize: 12),
@@ -121,7 +130,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  const LastCategoriesInTheEndOfScreen(),
+                 // const LastCategoriesInTheEndOfScreen(),
                 ],
               ),
             ),

@@ -101,50 +101,50 @@ class Pet {
   String toRawJson() => json.encode(toJson());
 
   factory Pet.fromJson(Map<String, dynamic> json) => Pet(
-    id: json["id"],
-    name: json["name"],
-    image: List<String>.from(json["image"].map((x) => x)),
-    year: json["year"],
-    month: json["month"],
-    size: json["size"],
-    breed: json["breed"],
-    gender: json["gender"],
-    hairLength: json["hairLength"],
-    color: json["color"],
-    careBehavior: json["careBehavior"],
-    houseTrained: json["houseTrained"],
-    description: json["description"],
-    location: json["location"],
-    phone: json["phone"],
-    vaccinated: json["vaccinated"],
-    categoryId: json["categoryId"],
-    userId: json["userId"],
-    user: Owner.fromJson(json["user"]),
-    category: json["category"],
-  );
+        id: json["id"],
+        name: json["name"],
+        image: List<String>.from(json["image"].map((x) => x)),
+        year: json["year"],
+        month: json["month"],
+        size: json["size"],
+        breed: json["breed"],
+        gender: json["gender"],
+        hairLength: json["hairLength"],
+        color: json["color"],
+        careBehavior: json["careBehavior"],
+        houseTrained: json["houseTrained"],
+        description: json["description"],
+        location: json["location"],
+        phone: json["phone"],
+        vaccinated: json["vaccinated"],
+        categoryId: json["categoryId"],
+        userId: json["userId"],
+        user: Owner.fromJson(json["user"]),
+        category: json["category"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "image": List<dynamic>.from(image.map((x) => x)),
-    "year": year,
-    "month": month,
-    "size": size,
-    "breed": breed,
-    "gender": gender,
-    "hairLength": hairLength,
-    "color": color,
-    "careBehavior": careBehavior,
-    "houseTrained": houseTrained,
-    "description": description,
-    "location": location,
-    "phone": phone,
-    "vaccinated": vaccinated,
-    "categoryId": categoryId,
-    "userId": userId,
-    "user": user.toJson(),
-    "category": category,
-  };
+        "id": id,
+        "name": name,
+        "image": List<dynamic>.from(image.map((x) => x)),
+        "year": year,
+        "month": month,
+        "size": size,
+        "breed": breed,
+        "gender": gender,
+        "hairLength": hairLength,
+        "color": color,
+        "careBehavior": careBehavior,
+        "houseTrained": houseTrained,
+        "description": description,
+        "location": location,
+        "phone": phone,
+        "vaccinated": vaccinated,
+        "categoryId": categoryId,
+        "userId": userId,
+        "user": user.toJson(),
+        "category": category,
+      };
 }
 
 class Owner {
@@ -170,29 +170,29 @@ class Owner {
   String toRawJson() => json.encode(toJson());
 
   factory Owner.fromJson(Map<String, dynamic> json) => Owner(
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-  );
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "firstName": firstName,
-    "lastName": lastName,
-  };
+        "firstName": firstName,
+        "lastName": lastName,
+      };
 }
 
-List<Pet> decodePetsFromJson(String data) =>
-    List<Pet>.from(
+List<Pet> decodePetsFromJson(String data) => List<Pet>.from(
       json.decode(data).map(
             (pet) => Pet.fromJson(
-          pet,
-        ),
-      ),
+              pet,
+            ),
+          ),
     );
-List<BetNeedsModel> decodeBetNeedsModelsFromJson( data) =>
-    List<BetNeedsModel>.from(
+
+List<PetsNeedsModel> decodeBetNeedsModelsFromJson(data) =>
+    List<PetsNeedsModel>.from(
       json.decode(data).map(
-            (pet) => BetNeedsModel.fromJson(
-          pet,
-        ),
-      ),
+            (pet) => PetsNeedsModel.fromJson(
+              pet,
+            ),
+          ),
     );

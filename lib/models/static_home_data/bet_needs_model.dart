@@ -1,12 +1,10 @@
-import 'dart:convert';
+class PetsNeedsModel {
+  late final String imageUrl;
+  late final String title;
 
-class BetNeedsModel {
-  String? imageUrl;
-  String? title;
+  PetsNeedsModel({required this.imageUrl, required this.title});
 
-  BetNeedsModel({this.imageUrl, this.title});
-
-  BetNeedsModel.fromJson(Map<String, dynamic> json) {
+  PetsNeedsModel.fromJson(Map<String, dynamic> json) {
     imageUrl = json['imageUrl'];
     title = json['title'];
   }
@@ -17,6 +15,4 @@ class BetNeedsModel {
     data['title'] = title;
     return data;
   }
-
-
 }

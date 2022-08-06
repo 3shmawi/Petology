@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hackathon/models/static_home_data/info_model.dart';
 import 'package:hackathon/modules/adaption/adaption_feed_dogs_screen.dart';
 import 'package:hackathon/modules/login/login_screen.dart';
 import 'package:hackathon/modules/sign_up/sign_up_screen.dart';
@@ -307,7 +311,10 @@ class DefaultSignWithCard extends StatelessWidget {
 }
 
 class DefaultFirstColumnOfTexts extends StatelessWidget {
-  const DefaultFirstColumnOfTexts({Key? key}) : super(key: key);
+  final InfoData infoData;
+
+  const DefaultFirstColumnOfTexts({required this.infoData, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -352,7 +359,7 @@ class DefaultFirstColumnOfTexts extends StatelessWidget {
 
                     final Uri emailLaunchUri = Uri(
                       scheme: 'mailto',
-                      path: 'Email@petology.com',
+                      path: infoData.email,
                       query: encodeQueryParameters(<String, String>{
                         'Petology': 'شكرا لتواصلك, كيف يمكنني مساعدتك',
                       }),
@@ -360,9 +367,9 @@ class DefaultFirstColumnOfTexts extends StatelessWidget {
 
                     launchUrl(emailLaunchUri);
                   },
-                  child: const Text(
-                    'Email@petology.com',
-                    style: TextStyle(color: Colors.white38, fontSize: 20),
+                  child: Text(
+                    infoData.email,
+                    style: const TextStyle(color: Colors.white38, fontSize: 20),
                   ),
                 ),
               ],
@@ -372,17 +379,17 @@ class DefaultFirstColumnOfTexts extends StatelessWidget {
             height: 10,
           ),
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.location_on,
                 color: Colors.white38,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               Text(
-                '(+2)0123456789',
-                style: TextStyle(color: Colors.white38, fontSize: 20),
+                infoData.phone,
+                style: const TextStyle(color: Colors.white38, fontSize: 20),
               ),
             ],
           ),
@@ -393,7 +400,10 @@ class DefaultFirstColumnOfTexts extends StatelessWidget {
 }
 
 class DefaultSecondColumnOfTexts extends StatelessWidget {
-  const DefaultSecondColumnOfTexts({Key? key}) : super(key: key);
+  final InfoData infoData;
+
+  const DefaultSecondColumnOfTexts({required this.infoData, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -419,17 +429,17 @@ class DefaultSecondColumnOfTexts extends StatelessWidget {
           ),
           Expanded(
             child: Row(
-              children: const [
-                Icon(
+              children: [
+                const Icon(
                   Icons.location_on,
                   color: Colors.white38,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Text(
-                  'First settlement/Cairo',
-                  style: TextStyle(color: Colors.white38, fontSize: 20),
+                  infoData.location,
+                  style: const TextStyle(color: Colors.white38, fontSize: 20),
                 ),
               ],
             ),
@@ -438,17 +448,17 @@ class DefaultSecondColumnOfTexts extends StatelessWidget {
             height: 10,
           ),
           Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.location_on,
                 color: Colors.white38,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               Text(
-                'Cairo/Egypt',
-                style: TextStyle(color: Colors.white38, fontSize: 20),
+                infoData.location2,
+                style: const TextStyle(color: Colors.white38, fontSize: 20),
               ),
             ],
           ),
@@ -459,7 +469,10 @@ class DefaultSecondColumnOfTexts extends StatelessWidget {
 }
 
 class LastCategoriesInTheEndOfScreen extends StatelessWidget {
-  const LastCategoriesInTheEndOfScreen({Key? key}) : super(key: key);
+  final InfoData infoData;
+
+  const LastCategoriesInTheEndOfScreen({required this.infoData, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -470,11 +483,15 @@ class LastCategoriesInTheEndOfScreen extends StatelessWidget {
         children: [
           const AppBarBackgroundColor(),
           Row(
-            children: const [
-              DefaultFirstColumnOfTexts(),
-              DefaultSecondColumnOfTexts(),
-              Spacer(),
-              Image(
+            children: [
+              DefaultFirstColumnOfTexts(
+                infoData: infoData,
+              ),
+              DefaultSecondColumnOfTexts(
+                infoData: infoData,
+              ),
+              const Spacer(),
+              const Image(
                 alignment: AlignmentDirectional.bottomEnd,
                 height: 200,
                 width: 200,
@@ -704,7 +721,7 @@ class DefaultDropDownButton extends StatefulWidget {
   final List<String> items;
   String selectedValue;
 
-   DefaultDropDownButton(
+  DefaultDropDownButton(
       {this.selectedValue = '',
       required this.text,
       required this.validateText,
@@ -717,8 +734,6 @@ class DefaultDropDownButton extends StatefulWidget {
 }
 
 class _DefaultDropDownButtonState extends State<DefaultDropDownButton> {
-
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -873,9 +888,90 @@ class DefaultWidgetCardHavePhotoAndButton extends StatelessWidget {
               SizedBox(
                 width: 200,
                 height: 200,
-                child: Image.asset(
-                  image,
+                child: Image.memory(
+                  base64Decode(
+                    image,
+                  ),
                 ),
+              ),
+              Text(
+                textName,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: 150,
+                child: DefaultButtonHasTextAndArrow(
+                  color: color,
+                  left: 0,
+                  text: textButton,
+                  onPresses: () {},
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  textCaption,
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class DefaultWidgetCardHavePhotoAndButton2 extends StatelessWidget {
+  final String textName;
+  final String textButton;
+  final String image;
+  final String textCaption;
+  final Color color;
+  final Color colorCard;
+
+  const DefaultWidgetCardHavePhotoAndButton2(
+      {required this.colorCard,
+      required this.textCaption,
+      required this.textButton,
+      required this.color,
+      required this.textName,
+      required this.image,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40.0),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(
+            color: Colors.white,
+            width: 3,
+          ),
+        ),
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            primary: colorCard,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(32.0),
+            ),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                width: 200,
+                height: 200,
+                child: Image.asset(image),
               ),
               Text(
                 textName,

@@ -15,13 +15,26 @@ class AboutSectionLoadingState extends HomeCubitStates {}
 class AboutSectionSuccessState extends HomeCubitStates {}
 
 class AboutSectionErrorState extends HomeCubitStates {}
+//*footer
+class FooterSectionLoadingState extends HomeCubitStates {}
 
-//*Bet Needs
-class BetNeedsSectionLoadingState extends HomeCubitStates {}
+class FooterSectionSuccessState extends HomeCubitStates {}
 
-class BetNeedsSectionSuccessState extends HomeCubitStates {}
+class FooterSectionErrorState extends HomeCubitStates {}
 
-class BetNeedsSectionErrorState extends HomeCubitStates {}
+//*find
+class FindSectionLoadingState extends HomeCubitStates {}
+
+class FindSectionSuccessState extends HomeCubitStates {}
+
+class FindSectionErrorState extends HomeCubitStates {}
+
+//*Pets Needs
+class PetsNeedsSectionLoadingState extends HomeCubitStates {}
+
+class PetsNeedsSectionSuccessState extends HomeCubitStates {}
+
+class PetsNeedsSectionErrorState extends HomeCubitStates {}
 
 //*change color card
 class ChangeColorCardOneStates extends HomeCubitStates {}

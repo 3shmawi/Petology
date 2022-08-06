@@ -1,10 +1,16 @@
-const String login = '/auth/login';
-const String register = '/auth/register';
-const String homeDataFirstSection = '/static/homepage/first-section';
-const String about = '/static/homepage/second-section';
+const String baseUrl = 'https://petology.orangedigitalcenteregypt.com/';
+const String login = 'auth/login';
+const String register = 'auth/register';
+const String homeDataFirstSection = 'static/homepage/first-section';
+const String about = 'static/homepage/second-section';
+const String info = 'static/homepage/footer';
+const String getPetsById = 'categories/1/pets?';
+const String sendFilters = 'pets/filters/:categoryId';
+const String findCategoryId = 'categories/:categoryId/pets';
+const String petNeeds = 'static/homepage/pet-needs';
+const String howToFeed = 'static/how-to/:catId';
+const String find = 'pets?filter=';
 
-const String petNeeds = '/static/homepage/pet-needs';
-const String howToFeed = '/static/how-to/:catId';
 //************************
 // const String kBaseUrl = "https://petology.orangedigitalcenteregypt.com";
 // //* Auth Endpoints

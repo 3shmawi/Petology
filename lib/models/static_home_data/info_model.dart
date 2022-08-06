@@ -1,10 +1,15 @@
 class InfoData {
-  String? email;
-  String? location;
-  String? phone;
-  String? location2;
+  late final String email;
+  late final String location;
+  late final String phone;
+  late final String location2;
 
-  InfoData({this.email, this.location, this.phone, this.location2});
+  InfoData({
+    required this.email,
+    required this.location,
+    required this.phone,
+    required this.location2,
+  });
 
   InfoData.fromJson(Map<String, dynamic> json) {
     email = json['email'];
@@ -17,7 +22,7 @@ class InfoData {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['email'] = email;
     data['location'] = location;
-    data['phone'] = this.phone;
+    data['phone'] = phone;
     data['location2'] = location2;
     return data;
   }

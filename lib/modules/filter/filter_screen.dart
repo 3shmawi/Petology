@@ -13,12 +13,12 @@ class FilterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FilterCubit>(
-      create: (context) => FilterCubit()..getPetsById(id),
+      create: (context) => FilterCubit()..getPetsById(id)..getFilterData(id),
       child: BlocConsumer<FilterCubit, FilterStates>(
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = FilterCubit.get(context);
-          return state is GetPetsByIdLoadingState
+          return (cubit.findBetsByIdModel == null)
               ? const Center(child: CircularProgressIndicator())
               : SafeArea(
                   child: Scaffold(
@@ -41,10 +41,18 @@ class FilterScreen extends StatelessWidget {
                                         children: [
                                           defaultText('Breed'),
                                           DefaultDropDownButton(
-                                            selectedValue: '',
-                                            text: '',
+                                            selectedValue: cubit
+                                                .findBetsByIdModel![0].breed,
+                                            text: cubit
+                                                .findBetsByIdModel![0].breed,
                                             validateText: 'invalid',
-                                            items: const ['', '', ''],
+                                            items: const [
+                                              "Aegean",
+                                              "American Bobtail",
+                                              "Australian Mist",
+                                              "Burmilla",
+                                              "Chartreux",
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -56,9 +64,23 @@ class FilterScreen extends StatelessWidget {
                                         children: [
                                           defaultText('Age'),
                                           DefaultDropDownButton(
+                                            selectedValue: cubit
+                                                .findBetsByIdModel![0].year
+                                                .toString(),
                                             text: '',
                                             validateText: 'invalid',
-                                            items: const ['', '', ''],
+                                            items: const [
+                                              "0-2 months",
+                                              "3-4 months",
+                                              "5-6 months",
+                                              "7-8 months",
+                                              "9-10 months",
+                                              "10-12 months",
+                                              "1-2 years",
+                                              "3-5 years",
+                                              "6-8 years",
+                                              "9+ years",
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -158,8 +180,11 @@ class FilterScreen extends StatelessWidget {
                                   height: 50,
                                 ),
                                 Wrap(
-                                  children: const [
-                                    DefaultWidgetCardHavePhotoAndButton(
+                                  alignment: WrapAlignment.center,
+                                  children: List.generate(
+                                    5,
+                                    (index) =>
+                                        const DefaultWidgetCardHavePhotoAndButton2(
                                       colorCard: Colors.white30,
                                       textButton: 'Reade more',
                                       color: Colors.white,
@@ -167,49 +192,9 @@ class FilterScreen extends StatelessWidget {
                                       image: 'assets/images/cat_d.png',
                                       textCaption: 'by Rewan',
                                     ),
-                                    DefaultWidgetCardHavePhotoAndButton(
-                                      colorCard: Colors.white30,
-                                      textButton: 'Reade more',
-                                      color: Colors.white,
-                                      textName: 'Eisa',
-                                      image: 'assets/images/cat_d.png',
-                                      textCaption: 'by Rewan',
-                                    ),
-                                    DefaultWidgetCardHavePhotoAndButton(
-                                      colorCard: Colors.white30,
-                                      textButton: 'Reade more',
-                                      color: Colors.white,
-                                      textName: 'Eisa',
-                                      image: 'assets/images/cat_d.png',
-                                      textCaption: 'by Rewan',
-                                    ),
-                                    DefaultWidgetCardHavePhotoAndButton(
-                                      colorCard: Colors.white30,
-                                      textButton: 'Reade more',
-                                      color: Colors.white,
-                                      textName: 'Eisa',
-                                      image: 'assets/images/cat_d.png',
-                                      textCaption: 'by Rewan',
-                                    ),
-                                    DefaultWidgetCardHavePhotoAndButton(
-                                      colorCard: Colors.white30,
-                                      textButton: 'Reade more',
-                                      color: Colors.white,
-                                      textName: 'Eisa',
-                                      image: 'assets/images/cat_d.png',
-                                      textCaption: 'by Rewan',
-                                    ),
-                                    DefaultWidgetCardHavePhotoAndButton(
-                                      colorCard: Colors.white30,
-                                      textButton: 'Reade more',
-                                      color: Colors.white,
-                                      textName: 'Eisa',
-                                      image: 'assets/images/cat_d.png',
-                                      textCaption: 'by Rewan',
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                                const LastCategoriesInTheEndOfScreen(),
+                                // const LastCategoriesInTheEndOfScreen(),
                               ],
                             ),
                           ),

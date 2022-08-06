@@ -1,118 +1,161 @@
-// import 'package:dio/dio.dart';
-//
-// import '../../components/constantse.dart';
-//
-// class DioHelper {
-//   static late Dio dio;
-//
-//   static init() {
-//     dio = Dio(
-//       BaseOptions(
-//         baseUrl: 'https://petology.orangedigitalcenteregypt.com',
-//         receiveDataWhenStatusError: true,
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Accept': 'application/json',
-//           'Authorization': "Bearer $token"
-//         },
-//       ),
-//     );
-//   }
-//
-//   static Future<Response> getData({
-//     required String url,
-//    // Map<String, dynamic>? query,
-//   }) async {
-//
-//     return await dio.get(
-//       url,
-//       //queryParameters: query,
-//
-//     );
-//   }
-//
-//   static Future<Response> postData({
-//     required String url,
-//     Map<String, dynamic>? query,
-//     required Map<String, dynamic> data,
-//   }) async {
-//
-//
-//     return dio.post(
-//       url,
-//       queryParameters: query,
-//       data: data,
-//     );
-//   }
-// }
 import 'package:dio/dio.dart';
 
+import '../end_points.dart';
 
 class DioHelper {
-  static late Dio dio;
+  late Dio dio;
 
-  static init() {
-    dio = Dio(
-      BaseOptions(
-          baseUrl: 'https://petology.orangedigitalcenteregypt.com/',
-          receiveDataWhenStatusError: true,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-      ),
+  DioHelper() {
+    BaseOptions options = BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: 20 * 1000,
+      receiveTimeout: 20 * 1000,
+      receiveDataWhenStatusError: true,
     );
+
+    dio = Dio(options);
   }
 
-  static Future<Response> getData({
-    required String url,
-    Map<String, dynamic>? query,
-    String? token,
-    String? lang = 'ar',
-  }) async {
-    dio.options.headers = {
-      'lang': lang,
-      'Authorization': token ?? '',
-      'Content-Type': 'application/json',
+  //***************** Register and sign in ******************\\
+  //** login
 
-    };
-    return await dio.get(
-      url,
-      queryParameters: query,
-    );
+  Future<String?> login(String email, String password) async {
+    try {
+      Response response = await dio.post('auth/login', data: {
+        'email': email,
+        'password': password,
+      });
+      //print(response.data['accessToken'].toString());
+      dio.options.headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
+      return response.data['accessToken'];
+    } catch (error) {
+      // print(error.toString());
+      return null;
+    }
   }
 
-  static Future<Response> postData({
-    required String url,
-    Map<String, dynamic>? query,
-    required Map<String, dynamic>? data,
-    String? token,
-  }) async {
-    dio.options.headers = {
-      'Authorization': token,
-      'Content-Type': 'application/json',
-    };
-    return dio.post(
-      url,
-      queryParameters: query,
-      data: data,
-    );
+//** register
+  Future<String?> register(String email, String password) async {
+    try {
+      Response response = await dio.post('auth/login', data: {
+        'email': email,
+        'password': password,
+      });
+      //print(response.data['accessToken'].toString());
+      dio.options.headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      };
+      return response.data['accessToken'];
+    } catch (error) {
+      // print(error.toString());
+      return null;
+    }
   }
 
+  //***************** get home data first section \\
 
-  static Future<Response> putData({
-    required String url,
-    Map<String, dynamic>? query,
-    required Map<String, dynamic>? data,
-    String? token,
-  }) async {
-    dio.options.headers = {
-      'Authorization': token,
-      'Content-Type': 'application/json',
-    };
-    return dio.put(
-      url,
-      queryParameters: query,
-      data: data,
-    );
+  Future<dynamic> getHomeDataFirstSection() async {
+    try {
+      Response response = await dio.get(homeDataFirstSection);
+       print(response.data.toString());
+      return response.data;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  //************ get about date at home  \\
+
+  Future<dynamic> getHomeDataAboutSection() async {
+    try {
+      Response response = await dio.get(about);
+      //print(response.data.toString());
+      return response.data;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  //************ get footer date at home  \\
+
+  Future<dynamic> getFooterDataAboutSection() async {
+    try {
+      Response response = await dio.get(info);
+      // print(response.data.toString());
+      return response.data;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  //***************** home data pets needs *****************\\
+  Future<List<dynamic>> getPetNeedsData() async {
+    try {
+      Response response = await dio.get(petNeeds);
+      // print(response.data.toString());
+      return response.data;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  //***************** find category id *****************\\
+  Future<List<dynamic>> getCategoryId(int id) async {
+    try {
+      Response response = await dio.get(
+        findCategoryId,
+      );
+      // print(response.data.toString());
+      return response.data;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  //***************** home data *****************\\
+
+  Future<List<dynamic>> getPetById(int id) async {
+    try {
+      Response response = await dio.get('categories/$id/pets?');
+      // print(response.data.toString());
+      return response.data;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  Future<List<dynamic>> getFindCategory() async {
+    try {
+      Response response = await dio.get(find);
+      //print(response.data.toString());
+      return response.data;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  //************ get filter data  \\
+
+  Future<dynamic> getListFilter(int id) async {
+    try {
+      Response response = await dio.get('pets/filters/$id');
+
+      print(response.data);
+      return response.data;
+    } catch (error) {
+      print('dddddddddddddddddddddddddddddddddddddd' + error.toString());
+      return [];
+    }
   }
 }

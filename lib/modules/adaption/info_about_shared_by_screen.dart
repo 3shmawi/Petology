@@ -205,7 +205,7 @@ class SharedByScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.headline5,
                       ),
                     ),
-                    const LastCategoriesInTheEndOfScreen(),
+                   // const LastCategoriesInTheEndOfScreen(),
                   ],
                 ),
               ),
