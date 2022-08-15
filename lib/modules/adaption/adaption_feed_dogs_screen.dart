@@ -1,10 +1,11 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hackathon/layout/home_cubit/footer_cubit.dart';
-import 'package:hackathon/layout/home_cubit/footer_states.dart';
 
+import '../../layout/home_cubit/main_cubit.dart';
+import '../../layout/home_cubit/main_states.dart';
 import '../../shared/components/components.dart';
-
 
 class FeedDogsScreen extends StatelessWidget {
   const FeedDogsScreen({Key? key}) : super(key: key);

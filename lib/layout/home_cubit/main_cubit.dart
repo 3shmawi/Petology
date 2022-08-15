@@ -7,7 +7,7 @@ import 'package:hackathon/shared/network/remote/dio_helper.dart';
 import 'package:hackathon/shared/network/repository/repository_screen.dart';
 
 import '../../shared/components/constantse.dart';
-import 'footer_states.dart';
+import 'main_states.dart';
 
 class HomeCubit extends Cubit<HomeCubitStates> {
   HomeCubit() : super(HomeCubitInitialState());
@@ -87,13 +87,13 @@ class HomeCubit extends Cubit<HomeCubitStates> {
     });
   }
 
-  getHomeData() {
-    getFirstSectionHomeData();
-    getAboutInfoData();
-    getPestNeedsData();
-    getFooterDataAtHomeScreen();
-    getFindData();
-  }
+  // getHomeData() {
+  //   getFirstSectionHomeData();
+  //   getAboutInfoData();
+  //   getPestNeedsData();
+  //   getFooterDataAtHomeScreen();
+  //   getFindData();
+  // }
 
   bool coloredCarOne = false;
   bool coloredCarTwo = false;

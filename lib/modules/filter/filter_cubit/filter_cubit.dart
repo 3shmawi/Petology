@@ -31,7 +31,7 @@ class FilterCubit extends Cubit<FilterStates> {
 
     Repository(DioHelper()).getListFilter(id).then((value) {
       filters = value ;
-      print(filters.toString());
+      print(filters!.breed[0]);
       emit(GetFilterByIdSuccessState());
     }).catchError((error) {
       print(error.toString());

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hackathon/layout/home_cubit/footer_cubit.dart';
-import 'package:hackathon/modules/filter/filter_cubit/filter_cubit.dart';
-import 'package:hackathon/shared/components/constantse.dart';
 
+import '../modules/filter/filter_cubit/filter_cubit.dart';
 import '../modules/filter/filter_screen.dart';
 import '../shared/components/components.dart';
-import 'home_cubit/footer_states.dart';
+import '../shared/components/constantse.dart';
+import 'home_cubit/main_states.dart';
+import 'home_cubit/main_cubit.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,14 +16,18 @@ class Home extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<HomeCubit>(
-            create: (context) => HomeCubit()..getHomeData()),
+            create: (context) => HomeCubit()
+              ..getFindData()
+              ..getPestNeedsData()
+              ..getFooterDataAtHomeScreen()
+              ..getAboutInfoData()
+              ..getFirstSectionHomeData()),
         BlocProvider<FilterCubit>(create: (context) => FilterCubit()),
       ],
       child: BlocConsumer<HomeCubit, HomeCubitStates>(
         listener: (context, state) {},
         builder: (context, state) {
           var homeCubit = HomeCubit.get(context);
-          var filterCubit = FilterCubit.get(context);
           return SafeArea(
             child: Scaffold(
               body: (homeCubit.aboutModel == null ||
@@ -57,7 +61,8 @@ class Home extends StatelessWidget {
                                                 SizedBox(
                                                   width: 300,
                                                   child: Text(
-                                                    homeCubit.firstSectionDataModel!
+                                                    homeCubit
+                                                        .firstSectionDataModel!
                                                         .title,
                                                     style: const TextStyle(
                                                         color: Colors.white,
@@ -72,7 +77,8 @@ class Home extends StatelessWidget {
                                                 SizedBox(
                                                   width: 300,
                                                   child: Text(
-                                                    homeCubit.firstSectionDataModel!
+                                                    homeCubit
+                                                        .firstSectionDataModel!
                                                         .body,
                                                     textAlign: TextAlign.start,
                                                     style: const TextStyle(
@@ -333,7 +339,8 @@ class Home extends StatelessWidget {
                                                   color: Colors.white,
                                                   textName: homeCubit
                                                       .findModel![index].name,
-                                                  image: homeCubit.findModel![index]
+                                                  image: homeCubit
+                                                      .findModel![index]
                                                       .image[0]
                                                       .substring(
                                                           22,

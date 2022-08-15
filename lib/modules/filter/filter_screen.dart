@@ -13,12 +13,14 @@ class FilterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<FilterCubit>(
-      create: (context) => FilterCubit()..getPetsById(id)..getFilterData(id),
+      create: (context) => FilterCubit()
+        ..getPetsById(id)
+        ..getFilterData(id),
       child: BlocConsumer<FilterCubit, FilterStates>(
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = FilterCubit.get(context);
-          return (cubit.findBetsByIdModel == null)
+          return (cubit.findBetsByIdModel == null || cubit.filters == null)
               ? const Center(child: CircularProgressIndicator())
               : SafeArea(
                   child: Scaffold(
@@ -46,13 +48,7 @@ class FilterScreen extends StatelessWidget {
                                             text: cubit
                                                 .findBetsByIdModel![0].breed,
                                             validateText: 'invalid',
-                                            items: const [
-                                              "Aegean",
-                                              "American Bobtail",
-                                              "Australian Mist",
-                                              "Burmilla",
-                                              "Chartreux",
-                                            ],
+                                            items: cubit.filters!.breed,
                                           ),
                                         ],
                                       ),
@@ -69,18 +65,7 @@ class FilterScreen extends StatelessWidget {
                                                 .toString(),
                                             text: '',
                                             validateText: 'invalid',
-                                            items: const [
-                                              "0-2 months",
-                                              "3-4 months",
-                                              "5-6 months",
-                                              "7-8 months",
-                                              "9-10 months",
-                                              "10-12 months",
-                                              "1-2 years",
-                                              "3-5 years",
-                                              "6-8 years",
-                                              "9+ years",
-                                            ],
+                                            items: cubit.filters!.ages,
                                           ),
                                         ],
                                       ),
@@ -94,7 +79,7 @@ class FilterScreen extends StatelessWidget {
                                           DefaultDropDownButton(
                                             text: '',
                                             validateText: 'invalid',
-                                            items: const ['', '', ''],
+                                            items: cubit.filters!.size,
                                           ),
                                         ],
                                       ),
@@ -108,7 +93,7 @@ class FilterScreen extends StatelessWidget {
                                           DefaultDropDownButton(
                                             text: '',
                                             validateText: 'invalid',
-                                            items: const ['', '', ''],
+                                            items: cubit.filters!.goodWith,
                                           ),
                                         ],
                                       ),
@@ -127,7 +112,7 @@ class FilterScreen extends StatelessWidget {
                                           DefaultDropDownButton(
                                             text: '',
                                             validateText: 'invalid',
-                                            items: const ['', '', ''],
+                                            items: const ['male', 'female'],
                                           ),
                                         ],
                                       ),
@@ -141,7 +126,7 @@ class FilterScreen extends StatelessWidget {
                                           DefaultDropDownButton(
                                             text: '',
                                             validateText: 'invalid',
-                                            items: const ['', '', ''],
+                                            items: cubit.filters!.colors,
                                           ),
                                         ],
                                       ),
@@ -155,7 +140,7 @@ class FilterScreen extends StatelessWidget {
                                           DefaultDropDownButton(
                                             text: '',
                                             validateText: 'invalid',
-                                            items: const ['', '', ''],
+                                            items: cubit.filters!.hairLength,
                                           ),
                                         ],
                                       ),
@@ -169,7 +154,7 @@ class FilterScreen extends StatelessWidget {
                                           DefaultDropDownButton(
                                             text: '',
                                             validateText: 'invalid',
-                                            items: const ['', '', ''],
+                                            items: cubit.filters!.behaviour,
                                           ),
                                         ],
                                       ),
