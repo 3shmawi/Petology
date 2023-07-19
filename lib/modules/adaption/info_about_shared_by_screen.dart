@@ -104,7 +104,7 @@ class SharedByScreen extends StatelessWidget {
                                     ),
                           ),
                           const Spacer(),
-                          const Icon(Icons.whatsapp, size: 30),
+                          const Icon(Icons.chat, size: 30),
                           const SizedBox(
                             width: 10,
                           ),
