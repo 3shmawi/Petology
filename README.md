@@ -1,4 +1,4 @@
-# hackathon
+# Petology
 
 A new Flutter project.
 
